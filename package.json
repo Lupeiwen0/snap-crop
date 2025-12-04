@@ -60,8 +60,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/snap-crop.git"
+    "url": "git+https://github.com/Lupeiwen0/snap-crop.git"
   },
+  "bugs": {
+    "url": "https://github.com/Lupeiwen0/snap-crop/issues"
+  },
+  "homepage": "https://github.com/Lupeiwen0/snap-crop#readme",
   "license": "MIT",
   "author": ""
 }
