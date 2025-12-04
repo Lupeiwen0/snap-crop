@@ -170,7 +170,6 @@ export function FillMode({
 
   // Calculate positions for rendering
   const canMove = fillDims && (fillDims.canMoveX || fillDims.canMoveY);
-  const isLocked = fillDims && !fillDims.canMoveX && !fillDims.canMoveY;
 
   // Show loading state until we have valid container size and image dimensions
   const isReady =
@@ -247,22 +246,7 @@ export function FillMode({
               style={{ top: `${(frameHeight * 2) / 3}px` }}
             />
           </div>
-
-          {isLocked && (
-            <div className="fill-locked-overlay">
-              <span className="fill-locked-message">图片已完全填满画框</span>
-            </div>
-          )}
         </div>
-      </div>
-
-      <div className="fill-info">
-        <span>
-          输出尺寸: {fillDims.frameWidth} × {fillDims.frameHeight}
-        </span>
-        {canMove && (
-          <span className="fill-hint">拖动图片调整位置，双击重置</span>
-        )}
       </div>
     </div>
   );

@@ -37,31 +37,15 @@ export function calculateFillDimensions(
   const frameWidth = defaultSize.width;
   const frameHeight = defaultSize.height;
 
-  // Determine frame orientation
-  const isFrameLandscape = frameWidth >= frameHeight;
-  const frameShortEdge = isFrameLandscape ? frameHeight : frameWidth;
+  // Calculate scale ratios for both dimensions
+  const scaleX = frameWidth / imageWidth;
+  const scaleY = frameHeight / imageHeight;
 
-  // Determine image orientation
-  const isImageLandscape = imageWidth >= imageHeight;
-  const imageLongEdge = isImageLandscape ? imageWidth : imageHeight;
-
-  // Calculate scale: image long edge = frame short edge
-  const scale = frameShortEdge / imageLongEdge;
-  let scaledWidth = Math.round(imageWidth * scale);
-  let scaledHeight = Math.round(imageHeight * scale);
-
-  // Ensure the scaled image fits within frame bounds
-  // If either dimension exceeds frame, scale down further
-  if (scaledWidth > frameWidth) {
-    const extraScale = frameWidth / scaledWidth;
-    scaledWidth = frameWidth;
-    scaledHeight = Math.round(scaledHeight * extraScale);
-  }
-  if (scaledHeight > frameHeight) {
-    const extraScale = frameHeight / scaledHeight;
-    scaledHeight = frameHeight;
-    scaledWidth = Math.round(scaledWidth * extraScale);
-  }
+  // Use the smaller scale to ensure image fits within frame (contain mode)
+  // This ensures one edge fills the frame completely, the other edge has fill
+  const scale = Math.min(scaleX, scaleY);
+  const scaledWidth = Math.round(imageWidth * scale);
+  const scaledHeight = Math.round(imageHeight * scale);
 
   // Calculate fill areas
   const fillLeft = Math.max(0, Math.floor((frameWidth - scaledWidth) / 2));
