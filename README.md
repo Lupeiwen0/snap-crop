@@ -38,12 +38,21 @@ This package requires the following peer dependencies:
 npm install react react-dom react-easy-crop
 ```
 
+### Styling Dependency
+
+This package uses **TailwindCSS** for styling. Make sure your project has TailwindCSS configured. If you haven't set up TailwindCSS yet:
+
+```bash
+npm install tailwindcss @tailwindcss/vite
+```
+
+Then configure TailwindCSS in your project according to the [official documentation](https://tailwindcss.com/docs/installation).
+
 ## 🚀 Quick Start
 
 ```tsx
 import { useRef } from "react";
 import { SnapCrop, SnapCropRef } from "snap-crop";
-import "snap-crop/style.css";
 
 function App() {
   const snapCropRef = useRef<SnapCropRef>(null);
@@ -77,7 +86,6 @@ function App() {
 
 ```tsx
 import { SnapCrop, SnapCropRef } from "snap-crop";
-import "snap-crop/style.css";
 
 function CropExample() {
   const ref = useRef<SnapCropRef>(null);
@@ -199,13 +207,13 @@ const handleUpload = async () => {
 
 ### SnapCrop Props
 
-| Prop        | Type          | Default      | Description                                                         |
-| ----------- | ------------- | ------------ | ------------------------------------------------------------------- |
-| `image`     | `string`      | **required** | Image source URL or base64 string                                   |
-| `aspect`    | `AspectRatio` | `'16:9'`     | Aspect ratio: `'16:9'` \| `'9:16'` \| `'1:1'` \| `'4:3'` \| `'3:4'` |
-| `mode`      | `CropMode`    | `'crop'`     | Operating mode: `'crop'` \| `'fill'`                                |
-| `fillColor` | `string`      | `'#FFFFFF'`  | Fill color for fill mode (hex or `'transparent'`)                   |
-| `className` | `string`      | `''`         | Custom CSS class (supports Tailwind classes)                        |
+| Prop        | Type                    | Default      | Description                                                                                                 |
+| ----------- | ----------------------- | ------------ | ----------------------------------------------------------------------------------------------------------- |
+| `image`     | `string`                | **required** | Image source URL or base64 string                                                                           |
+| `aspect`    | `AspectRatio \| number` | `'16:9'`     | Aspect ratio preset (`'16:9'` \| `'9:16'` \| `'1:1'` \| `'4:3'` \| `'3:4'`) or custom number (e.g., `2.35`) |
+| `mode`      | `CropMode`              | `'crop'`     | Operating mode: `'crop'` \| `'fill'`                                                                        |
+| `fillColor` | `string`                | `'#FFFFFF'`  | Fill color for fill mode (hex or `'transparent'`)                                                           |
+| `className` | `string`                | `''`         | Custom CSS class (supports Tailwind classes)                                                                |
 
 #### Crop Mode Control Props
 
@@ -269,13 +277,9 @@ snapCropRef.current?.reset();
 
 ## 🎨 Styling
 
-Import the default styles:
+This component uses **TailwindCSS** for styling. Ensure TailwindCSS is configured in your project.
 
-```tsx
-import "snap-crop/style.css";
-```
-
-The component uses CSS classes that you can override:
+The component uses the following CSS class names that you can target for customization:
 
 | Class         | Description         |
 | ------------- | ------------------- |
@@ -286,6 +290,17 @@ The component uses CSS classes that you can override:
 | `.fill-image` | Image in fill mode  |
 
 ### Custom Styling Example
+
+You can use the `className` prop to add additional Tailwind classes:
+
+```tsx
+<SnapCrop
+  className="rounded-lg overflow-hidden shadow-lg"
+  // ... other props
+/>
+```
+
+Or target the class names in your custom CSS:
 
 ```css
 .snap-crop {
