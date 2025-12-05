@@ -1,6 +1,7 @@
 // Re-export SnapCrop types for backward compatibility
 export type {
   AspectRatio,
+  AspectRatioValue,
   CropMode,
   CropArea,
   ExportFormat,
@@ -9,7 +10,10 @@ export type {
   Area,
 } from "./components/SnapCrop/types";
 
-export { ASPECT_RATIOS } from "./components/SnapCrop/types";
+export {
+  ASPECT_RATIOS,
+  getAspectRatioValue,
+} from "./components/SnapCrop/types";
 
 // Types not specific to SnapCrop
 export interface ExportOptions {

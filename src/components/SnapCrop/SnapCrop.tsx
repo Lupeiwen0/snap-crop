@@ -9,7 +9,7 @@ import { CropMode, CropModeRef } from "./CropMode";
 import { FillMode } from "./FillMode";
 import {
   CropArea,
-  AspectRatio,
+  AspectRatioValue,
   CropMode as TCropMode,
   ExportFormat,
   Point,
@@ -28,8 +28,8 @@ export interface SnapCropProps
   > {
   /** Image source URL or base64 string */
   image: string;
-  /** Aspect ratio of the crop area */
-  aspect?: AspectRatio;
+  /** Aspect ratio of the crop area (preset string or custom number) */
+  aspect?: AspectRatioValue;
   /** Mode: 'crop' for cropping, 'fill' for filling */
   mode?: TCropMode;
   /** Fill color for fill mode (hex or rgba) */

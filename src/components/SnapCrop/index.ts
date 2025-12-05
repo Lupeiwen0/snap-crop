@@ -5,6 +5,7 @@ export type { CropModeProps, CropModeRef } from "./CropMode";
 // Re-export SnapCrop specific types
 export type {
   AspectRatio,
+  AspectRatioValue,
   CropMode,
   CropArea,
   ExportFormat,
@@ -13,4 +14,4 @@ export type {
   Area,
 } from "./types";
 
-export { ASPECT_RATIOS } from "./types";
+export { ASPECT_RATIOS, getAspectRatioValue } from "./types";

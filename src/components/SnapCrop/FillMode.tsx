@@ -6,7 +6,7 @@ import {
   useMemo,
   useLayoutEffect,
 } from "react";
-import { AspectRatio, ASPECT_RATIOS } from "./types";
+import { AspectRatioValue, getAspectRatioValue } from "./types";
 import {
   calculateFillDimensions,
   FillImagePosition,
@@ -15,7 +15,7 @@ import { getImageDimensions } from "../../utils/imageHelpers";
 
 interface FillModeProps {
   image: string;
-  aspect: AspectRatio;
+  aspect: AspectRatioValue;
   fillColor: string;
   onPositionChange: (position: FillImagePosition) => void;
 }
@@ -85,7 +85,7 @@ export function FillMode({
     const availableHeight = containerSize.height;
 
     // Use the aspect ratio to calculate frame dimensions that fit the container
-    const aspectRatio = ASPECT_RATIOS[aspect];
+    const aspectRatio = getAspectRatioValue(aspect);
 
     // Calculate the largest frame that fits in the container
     let frameDisplayWidth: number;
