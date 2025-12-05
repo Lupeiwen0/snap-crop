@@ -11,7 +11,6 @@ export default defineConfig(({ mode }) => {
     return {
       plugins: [
         react(),
-        tailwindcss(),
         dts({
           include: ["src"],
           exclude: ["src/App.tsx", "src/main.tsx"],
