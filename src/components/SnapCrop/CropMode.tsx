@@ -8,18 +8,17 @@ import {
 import Cropper from "react-easy-crop";
 import {
   CropArea,
-  AspectRatio,
-  ASPECT_RATIOS,
+  AspectRatioValue,
+  getAspectRatioValue,
   Point,
   CropperProps,
-} from "../types";
-import "./CropMode.css";
+} from "./types";
 
 export interface CropModeProps extends Partial<CropperProps> {
   /** Image source URL or base64 string */
   image: string;
   /** Aspect ratio of the crop area */
-  aspect: AspectRatio;
+  aspect: AspectRatioValue;
   /** Callback when crop is complete */
   onCropComplete: (croppedArea: CropArea, croppedAreaPixels: CropArea) => void;
   /** Controlled crop position */
@@ -121,12 +120,12 @@ export const CropMode = forwardRef<CropModeRef, CropModeProps>(
     );
 
     return (
-      <div className="crop-mode" onDoubleClick={handleDoubleClick}>
+      <div className="relative w-full h-full" onDoubleClick={handleDoubleClick}>
         <Cropper
           image={image}
           crop={crop}
           zoom={zoom}
-          aspect={ASPECT_RATIOS[aspect]}
+          aspect={getAspectRatioValue(aspect)}
           onCropChange={handleCropChange}
           onZoomChange={handleZoomChange}
           onCropComplete={handleCropCompleteInternal}

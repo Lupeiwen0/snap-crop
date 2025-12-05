@@ -1,5 +1,10 @@
 import { createImage } from "./cropImage";
-import { ExportFormat, AspectRatio, DEFAULT_SIZES } from "../types";
+import {
+  ExportFormat,
+  AspectRatioValue,
+  getAspectRatioValue,
+} from "../components/SnapCrop/types";
+import { DEFAULT_SIZES } from "../types";
 
 export interface FillImagePosition {
   x: number;
@@ -31,11 +36,31 @@ export interface FillImageDimensions {
 export function calculateFillDimensions(
   imageWidth: number,
   imageHeight: number,
-  aspect: AspectRatio
+  aspect: AspectRatioValue
 ): FillImageDimensions {
-  const defaultSize = DEFAULT_SIZES[aspect];
-  const frameWidth = defaultSize.width;
-  const frameHeight = defaultSize.height;
+  // Calculate frame dimensions
+  let frameWidth: number;
+  let frameHeight: number;
+
+  if (typeof aspect === "string" && DEFAULT_SIZES[aspect]) {
+    // Use preset dimensions for known aspect ratios
+    const defaultSize = DEFAULT_SIZES[aspect];
+    frameWidth = defaultSize.width;
+    frameHeight = defaultSize.height;
+  } else {
+    // For custom aspect ratios, calculate based on fixed short edge (1080px)
+    const aspectValue = getAspectRatioValue(aspect);
+    const shortEdge = 1080;
+    if (aspectValue >= 1) {
+      // Landscape: width is longer
+      frameHeight = shortEdge;
+      frameWidth = Math.round(shortEdge * aspectValue);
+    } else {
+      // Portrait: height is longer
+      frameWidth = shortEdge;
+      frameHeight = Math.round(shortEdge / aspectValue);
+    }
+  }
 
   // Calculate scale ratios for both dimensions
   const scaleX = frameWidth / imageWidth;
@@ -80,7 +105,7 @@ export function calculateFillDimensions(
  */
 export async function getFilledImg(
   imageSrc: string,
-  aspect: AspectRatio,
+  aspect: AspectRatioValue,
   position: FillImagePosition,
   fillColor: string,
   format: ExportFormat = "jpeg",

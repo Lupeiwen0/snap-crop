@@ -8,9 +8,9 @@ A React image cropping component with both **Crop Mode** and **Fill Mode**.
 ## ✨ Features
 
 - 🖼️ **Crop Mode**: Crop images by adjusting the crop frame with zoom and pan
+- ⭕ **Circular Crop**: Support for circular cropping masks
 - 📐 **Fill Mode**: Position images within a fixed frame with customizable fill color
-- 🎨 **Color Picker**: Built-in color picker with presets and custom color support
-- 📏 **Aspect Ratios**: Support for 16:9, 9:16, 1:1, 4:3, 3:4
+- 📝 **Aspect Ratios**: Support for 16:9, 9:16, 1:1, 4:3, 3:4
 - 💾 **Export**: Export to JPEG, PNG, or WebP with quality control
 - 📱 **Responsive**: Works on desktop and mobile
 - ⚡ **Controlled & Uncontrolled**: Supports both controlled and uncontrolled usage patterns
@@ -28,6 +28,14 @@ yarn add snap-crop
 
 ```bash
 pnpm add snap-crop
+```
+
+### Peer Dependencies
+
+This package requires the following peer dependencies:
+
+```bash
+npm install react react-dom react-easy-crop
 ```
 
 ## 🚀 Quick Start
@@ -82,6 +90,27 @@ function CropExample() {
         aspect="16:9"
         mode="crop"
         showGrid={true}
+      />
+    </div>
+  );
+}
+```
+
+### Circular Crop
+
+```tsx
+function CircularCropExample() {
+  const ref = useRef<SnapCropRef>(null);
+
+  return (
+    <div style={{ width: "400px", height: "400px" }}>
+      <SnapCrop
+        ref={ref}
+        image="/avatar.jpg"
+        aspect="1:1"
+        mode="crop"
+        cropShape="round"
+        showGrid={false}
       />
     </div>
   );
@@ -166,21 +195,6 @@ const handleUpload = async () => {
 };
 ```
 
-### Using with ColorPicker
-
-The `ColorPicker` component can be used standalone:
-
-```tsx
-import { ColorPicker } from "snap-crop";
-import "snap-crop/style.css";
-
-function ColorPickerExample() {
-  const [color, setColor] = useState("#FFFFFF");
-
-  return <ColorPicker color={color} onChange={setColor} disabled={false} />;
-}
-```
-
 ## 📋 API Reference
 
 ### SnapCrop Props
@@ -191,7 +205,7 @@ function ColorPickerExample() {
 | `aspect`    | `AspectRatio` | `'16:9'`     | Aspect ratio: `'16:9'` \| `'9:16'` \| `'1:1'` \| `'4:3'` \| `'3:4'` |
 | `mode`      | `CropMode`    | `'crop'`     | Operating mode: `'crop'` \| `'fill'`                                |
 | `fillColor` | `string`      | `'#FFFFFF'`  | Fill color for fill mode (hex or `'transparent'`)                   |
-| `className` | `string`      | `''`         | Custom CSS class                                                    |
+| `className` | `string`      | `''`         | Custom CSS class (supports Tailwind classes)                        |
 
 #### Crop Mode Control Props
 
@@ -263,14 +277,13 @@ import "snap-crop/style.css";
 
 The component uses CSS classes that you can override:
 
-| Class           | Description            |
-| --------------- | ---------------------- |
-| `.snap-crop`    | Main container         |
-| `.crop-mode`    | Crop mode container    |
-| `.fill-mode`    | Fill mode container    |
-| `.fill-frame`   | Fill mode frame        |
-| `.fill-image`   | Image in fill mode     |
-| `.color-picker` | Color picker component |
+| Class         | Description         |
+| ------------- | ------------------- |
+| `.snap-crop`  | Main container      |
+| `.crop-mode`  | Crop mode container |
+| `.fill-mode`  | Fill mode container |
+| `.fill-frame` | Fill mode frame     |
+| `.fill-image` | Image in fill mode  |
 
 ### Custom Styling Example
 
@@ -296,6 +309,7 @@ import {
   getFilledImg,
   downloadBlob,
   createImage,
+  getExtension,
 
   // File validation
   validateImageFile,
@@ -331,21 +345,15 @@ npm run typecheck
 npm run lint
 ```
 
-## 📝 Modes
+## 🤝 Contributing
 
-### Crop Mode
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- Adjust crop frame by dragging
-- Zoom with mouse wheel or pinch gesture
-- Pan image when zoomed
-- Double-click to reset to default
-
-### Fill Mode
-
-- Image is scaled to fit within the frame (short edge touches frame edge)
-- Drag image to adjust position within frame
-- Fill color applies to empty areas around the image
-- Double-click to reset position
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📄 License
 

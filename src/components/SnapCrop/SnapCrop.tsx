@@ -5,19 +5,22 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import { CropMode, CropModeRef } from "./components/CropMode";
-import { FillMode } from "./components/FillMode";
+import { CropMode, CropModeRef } from "./CropMode";
+import { FillMode } from "./FillMode";
 import {
   CropArea,
-  AspectRatio,
+  AspectRatioValue,
   CropMode as TCropMode,
   ExportFormat,
   Point,
   CropperProps,
 } from "./types";
-import { getCroppedImg, downloadBlob, getExtension } from "./utils/cropImage";
-import { getFilledImg, FillImagePosition } from "./utils/fillImage";
-import "./SnapCrop.css";
+import {
+  getCroppedImg,
+  downloadBlob,
+  getExtension,
+} from "../../utils/cropImage";
+import { getFilledImg, FillImagePosition } from "../../utils/fillImage";
 
 export interface SnapCropProps
   extends Partial<
@@ -25,8 +28,8 @@ export interface SnapCropProps
   > {
   /** Image source URL or base64 string */
   image: string;
-  /** Aspect ratio of the crop area */
-  aspect?: AspectRatio;
+  /** Aspect ratio of the crop area (preset string or custom number) */
+  aspect?: AspectRatioValue;
   /** Mode: 'crop' for cropping, 'fill' for filling */
   mode?: TCropMode;
   /** Fill color for fill mode (hex or rgba) */
@@ -96,6 +99,9 @@ export const SnapCrop = forwardRef<SnapCropRef, SnapCropProps>(
     const currentAspect = useRef(aspect);
     currentAspect.current = aspect;
 
+    const currentCropShape = useRef(cropShape);
+    currentCropShape.current = cropShape;
+
     const handleCropComplete = useCallback(
       (croppedArea: CropArea, pixels: CropArea) => {
         setCroppedAreaPixels(pixels);
@@ -117,7 +123,13 @@ export const SnapCrop = forwardRef<SnapCropRef, SnapCropProps>(
           if (!croppedAreaPixels) {
             throw new Error("No crop area defined");
           }
-          return getCroppedImg(image, croppedAreaPixels, format, quality);
+          return getCroppedImg(
+            image,
+            croppedAreaPixels,
+            format,
+            quality,
+            currentCropShape.current
+          );
         } else {
           return getFilledImg(
             image,
@@ -168,7 +180,7 @@ export const SnapCrop = forwardRef<SnapCropRef, SnapCropProps>(
     );
 
     return (
-      <div className={`snap-crop ${className}`}>
+      <div className={`snap-crop relative w-full h-full ${className}`}>
         {mode === "crop" ? (
           <CropMode
             ref={cropModeRef}
