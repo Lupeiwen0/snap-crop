@@ -14,12 +14,14 @@ export const createImage = (url: string): Promise<HTMLImageElement> =>
 
 /**
  * Get the cropped image as a blob
+ * @param cropShape - Shape of the crop area: "rect" for rectangle, "round" for circle
  */
 export async function getCroppedImg(
   imageSrc: string,
   pixelCrop: CropArea,
   format: ExportFormat = "jpeg",
-  quality: number = 0.9
+  quality: number = 0.9,
+  cropShape: "rect" | "round" = "rect"
 ): Promise<Blob> {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
@@ -31,6 +33,22 @@ export async function getCroppedImg(
 
   canvas.width = pixelCrop.width;
   canvas.height = pixelCrop.height;
+
+  // Apply elliptical mask if cropShape is "round"
+  if (cropShape === "round") {
+    ctx.beginPath();
+    ctx.ellipse(
+      pixelCrop.width / 2,
+      pixelCrop.height / 2,
+      pixelCrop.width / 2,
+      pixelCrop.height / 2,
+      0,
+      0,
+      2 * Math.PI
+    );
+    ctx.closePath();
+    ctx.clip();
+  }
 
   ctx.drawImage(
     image,
@@ -44,6 +62,9 @@ export async function getCroppedImg(
     pixelCrop.height
   );
 
+  // For circular crops, force PNG format to preserve transparency
+  const actualFormat = cropShape === "round" ? "png" : format;
+
   return new Promise((resolve, reject) => {
     canvas.toBlob(
       (blob) => {
@@ -53,7 +74,7 @@ export async function getCroppedImg(
           reject(new Error("Canvas is empty"));
         }
       },
-      `image/${format}`,
+      `image/${actualFormat}`,
       quality
     );
   });

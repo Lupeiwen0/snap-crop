@@ -99,6 +99,9 @@ export const SnapCrop = forwardRef<SnapCropRef, SnapCropProps>(
     const currentAspect = useRef(aspect);
     currentAspect.current = aspect;
 
+    const currentCropShape = useRef(cropShape);
+    currentCropShape.current = cropShape;
+
     const handleCropComplete = useCallback(
       (croppedArea: CropArea, pixels: CropArea) => {
         setCroppedAreaPixels(pixels);
@@ -120,7 +123,13 @@ export const SnapCrop = forwardRef<SnapCropRef, SnapCropProps>(
           if (!croppedAreaPixels) {
             throw new Error("No crop area defined");
           }
-          return getCroppedImg(image, croppedAreaPixels, format, quality);
+          return getCroppedImg(
+            image,
+            croppedAreaPixels,
+            format,
+            quality,
+            currentCropShape.current
+          );
         } else {
           return getFilledImg(
             image,

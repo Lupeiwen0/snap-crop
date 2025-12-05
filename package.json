@@ -59,7 +59,8 @@
     "cropper",
     "fill",
     "resize",
-    "aspect-ratio"
+    "aspect-ratio",
+    "react-easy-crop"
   ],
   "repository": {
     "type": "git",
