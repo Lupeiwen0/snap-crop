@@ -235,7 +235,7 @@ function App() {
             <SnapCrop
               ref={snapCropRef}
               image={image}
-              aspect={21 / 9}
+              aspect={aspect}
               mode={mode}
               fillColor={fillColor}
               zoom={zoom}
