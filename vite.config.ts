@@ -48,5 +48,6 @@ export default defineConfig(({ mode }) => {
   // Development configuration
   return {
     plugins: [react(), tailwindcss()],
+    base: process.env.GITHUB_ACTIONS ? "/snap-crop/" : "/",
   };
 });
