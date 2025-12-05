@@ -11,8 +11,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/snap-crop.js",
       "require": "./dist/snap-crop.umd.cjs"
-    },
-    "./style.css": "./dist/style.css"
+    }
   },
   "files": [
     "dist"
