@@ -6,9 +6,12 @@ import {
   useMemo,
   useLayoutEffect,
 } from "react";
-import { AspectRatio, ASPECT_RATIOS } from "../types";
-import { calculateFillDimensions, FillImagePosition } from "../utils/fillImage";
-import { getImageDimensions } from "../utils/imageHelpers";
+import { AspectRatio, ASPECT_RATIOS } from "./types";
+import {
+  calculateFillDimensions,
+  FillImagePosition,
+} from "../../utils/fillImage";
+import { getImageDimensions } from "../../utils/imageHelpers";
 import "./FillMode.css";
 
 interface FillModeProps {

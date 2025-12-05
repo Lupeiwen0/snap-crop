@@ -5,8 +5,8 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import { CropMode, CropModeRef } from "./components/CropMode";
-import { FillMode } from "./components/FillMode";
+import { CropMode, CropModeRef } from "./CropMode";
+import { FillMode } from "./FillMode";
 import {
   CropArea,
   AspectRatio,
@@ -15,8 +15,12 @@ import {
   Point,
   CropperProps,
 } from "./types";
-import { getCroppedImg, downloadBlob, getExtension } from "./utils/cropImage";
-import { getFilledImg, FillImagePosition } from "./utils/fillImage";
+import {
+  getCroppedImg,
+  downloadBlob,
+  getExtension,
+} from "../../utils/cropImage";
+import { getFilledImg, FillImagePosition } from "../../utils/fillImage";
 import "./SnapCrop.css";
 
 export interface SnapCropProps

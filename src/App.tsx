@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import { SnapCrop, SnapCropRef } from "./SnapCrop";
+import { SnapCrop, SnapCropRef } from "./components/SnapCrop";
 import { ColorPicker } from "./components/ColorPicker";
 import { AspectRatio, CropMode, ExportFormat } from "./types";
 import { validateImageFile, fileToDataUrl } from "./utils/imageHelpers";

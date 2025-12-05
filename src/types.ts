@@ -1,58 +1,25 @@
-import type {
-  CropperProps as BaseCropperProps,
+// Re-export SnapCrop types for backward compatibility
+export type {
+  AspectRatio,
+  CropMode,
+  CropArea,
+  ExportFormat,
+  CropperProps,
   Point,
   Area,
-} from "react-easy-crop";
+} from "./components/SnapCrop/types";
 
-// Re-export react-easy-crop types
-export type { Point, Area };
-export type CropperProps = Omit<BaseCropperProps, "image" | "aspect">;
+export { ASPECT_RATIOS } from "./components/SnapCrop/types";
 
-// Types
-export type AspectRatio = "16:9" | "9:16" | "1:1" | "4:3" | "3:4";
-export type CropMode = "crop" | "fill";
-export type ExportFormat = "jpeg" | "png" | "webp";
-
-export interface CropArea {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-export interface SnapCropProps {
-  /** Image source URL or base64 string */
-  image: string;
-  /** Aspect ratio of the crop area */
-  aspect?: AspectRatio;
-  /** Mode: 'crop' for cropping, 'fill' for filling */
-  mode?: CropMode;
-  /** Fill color for fill mode (hex or rgba) */
-  fillColor?: string;
-  /** Callback when crop/position changes */
-  onCropChange?: (crop: CropArea) => void;
-  /** Callback when crop is complete */
-  onCropComplete?: (croppedArea: CropArea, croppedAreaPixels: CropArea) => void;
-  /** Custom class name */
-  className?: string;
-}
-
+// Types not specific to SnapCrop
 export interface ExportOptions {
-  format?: ExportFormat;
+  format?: "jpeg" | "png" | "webp";
   quality?: number; // 0-1, for jpeg and webp
 }
 
 // Constants
-export const ASPECT_RATIOS: Record<AspectRatio, number> = {
-  "16:9": 16 / 9,
-  "9:16": 9 / 16,
-  "1:1": 1,
-  "4:3": 4 / 3,
-  "3:4": 3 / 4,
-};
-
 export const DEFAULT_SIZES: Record<
-  AspectRatio,
+  "16:9" | "9:16" | "1:1" | "4:3" | "3:4",
   { width: number; height: number }
 > = {
   "16:9": { width: 1920, height: 1080 },

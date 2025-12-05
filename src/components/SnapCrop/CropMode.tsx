@@ -12,7 +12,7 @@ import {
   ASPECT_RATIOS,
   Point,
   CropperProps,
-} from "../types";
+} from "./types";
 import "./CropMode.css";
 
 export interface CropModeProps extends Partial<CropperProps> {

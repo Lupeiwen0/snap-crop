@@ -9,8 +9,7 @@ A React image cropping component with both **Crop Mode** and **Fill Mode**.
 
 - 🖼️ **Crop Mode**: Crop images by adjusting the crop frame with zoom and pan
 - 📐 **Fill Mode**: Position images within a fixed frame with customizable fill color
-- 🎨 **Color Picker**: Built-in color picker with presets and custom color support
-- 📏 **Aspect Ratios**: Support for 16:9, 9:16, 1:1, 4:3, 3:4
+- 📝 **Aspect Ratios**: Support for 16:9, 9:16, 1:1, 4:3, 3:4
 - 💾 **Export**: Export to JPEG, PNG, or WebP with quality control
 - 📱 **Responsive**: Works on desktop and mobile
 - ⚡ **Controlled & Uncontrolled**: Supports both controlled and uncontrolled usage patterns
@@ -28,6 +27,14 @@ yarn add snap-crop
 
 ```bash
 pnpm add snap-crop
+```
+
+### Peer Dependencies
+
+This package requires the following peer dependencies:
+
+```bash
+npm install react react-dom react-easy-crop
 ```
 
 ## 🚀 Quick Start
@@ -166,21 +173,6 @@ const handleUpload = async () => {
 };
 ```
 
-### Using with ColorPicker
-
-The `ColorPicker` component can be used standalone:
-
-```tsx
-import { ColorPicker } from "snap-crop";
-import "snap-crop/style.css";
-
-function ColorPickerExample() {
-  const [color, setColor] = useState("#FFFFFF");
-
-  return <ColorPicker color={color} onChange={setColor} disabled={false} />;
-}
-```
-
 ## 📋 API Reference
 
 ### SnapCrop Props
@@ -263,14 +255,13 @@ import "snap-crop/style.css";
 
 The component uses CSS classes that you can override:
 
-| Class           | Description            |
-| --------------- | ---------------------- |
-| `.snap-crop`    | Main container         |
-| `.crop-mode`    | Crop mode container    |
-| `.fill-mode`    | Fill mode container    |
-| `.fill-frame`   | Fill mode frame        |
-| `.fill-image`   | Image in fill mode     |
-| `.color-picker` | Color picker component |
+| Class         | Description         |
+| ------------- | ------------------- |
+| `.snap-crop`  | Main container      |
+| `.crop-mode`  | Crop mode container |
+| `.fill-mode`  | Fill mode container |
+| `.fill-frame` | Fill mode frame     |
+| `.fill-image` | Image in fill mode  |
 
 ### Custom Styling Example
 
