@@ -13,7 +13,6 @@ import {
   Point,
   CropperProps,
 } from "./types";
-import "./CropMode.css";
 
 export interface CropModeProps extends Partial<CropperProps> {
   /** Image source URL or base64 string */
@@ -121,7 +120,7 @@ export const CropMode = forwardRef<CropModeRef, CropModeProps>(
     );
 
     return (
-      <div className="crop-mode" onDoubleClick={handleDoubleClick}>
+      <div className="relative w-full h-full" onDoubleClick={handleDoubleClick}>
         <Cropper
           image={image}
           crop={crop}

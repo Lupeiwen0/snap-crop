@@ -12,7 +12,6 @@ import {
   FillImagePosition,
 } from "../../utils/fillImage";
 import { getImageDimensions } from "../../utils/imageHelpers";
-import "./FillMode.css";
 
 interface FillModeProps {
   image: string;
@@ -180,8 +179,13 @@ export function FillMode({
 
   if (!isReady) {
     return (
-      <div ref={containerRef} className="fill-mode">
-        <div className="fill-mode-loading">加载中...</div>
+      <div
+        ref={containerRef}
+        className="relative w-full h-full flex flex-col items-center justify-center"
+      >
+        <div className="flex items-center justify-center w-full h-full text-[#666] text-base">
+          加载中...
+        </div>
       </div>
     );
   }
@@ -204,26 +208,37 @@ export function FillMode({
     cursor: canMove ? (isDragging ? "grabbing" : "grab") : "default",
   };
 
+  // Style for checkered background pattern (transparent mode)
+  const transparentBgStyle = {
+    backgroundImage: `linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%)`,
+    backgroundSize: "20px 20px",
+    backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
+  };
+
   return (
     <div
       ref={containerRef}
-      className="fill-mode"
+      className="relative w-full h-full flex flex-col items-center justify-center"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
       {/* Checkered border container */}
-      <div className="fill-frame-container">
+      <div className="relative">
         <div
-          className={`fill-frame ${
-            fillColor === "transparent" ? "transparent-bg" : ""
-          }`}
-          style={frameStyle}
+          className="relative shadow-[0_4px_20px_rgba(0,0,0,0.5)] overflow-hidden"
+          style={{
+            ...frameStyle,
+            ...(fillColor === "transparent" ? transparentBgStyle : {}),
+          }}
         >
           <img
             src={image}
             alt="Preview"
-            className="fill-image"
+            className="absolute select-none pointer-events-auto"
             style={imageStyle}
             onMouseDown={handleMouseDown}
             onDoubleClick={handleDoubleClick}
@@ -231,21 +246,21 @@ export function FillMode({
           />
 
           {/* Grid overlay - Rule of thirds */}
-          <div className="fill-grid">
+          <div className="absolute inset-0 pointer-events-none z-10">
             <div
-              className="fill-grid-line fill-grid-v1"
+              className="absolute w-px top-0 bottom-0 bg-white/30"
               style={{ left: `${frameWidth / 3}px` }}
             />
             <div
-              className="fill-grid-line fill-grid-v2"
+              className="absolute w-px top-0 bottom-0 bg-white/30"
               style={{ left: `${(frameWidth * 2) / 3}px` }}
             />
             <div
-              className="fill-grid-line fill-grid-h1"
+              className="absolute h-px left-0 right-0 bg-white/30"
               style={{ top: `${frameHeight / 3}px` }}
             />
             <div
-              className="fill-grid-line fill-grid-h2"
+              className="absolute h-px left-0 right-0 bg-white/30"
               style={{ top: `${(frameHeight * 2) / 3}px` }}
             />
           </div>

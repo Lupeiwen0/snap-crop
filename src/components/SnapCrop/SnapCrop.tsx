@@ -21,7 +21,6 @@ import {
   getExtension,
 } from "../../utils/cropImage";
 import { getFilledImg, FillImagePosition } from "../../utils/fillImage";
-import "./SnapCrop.css";
 
 export interface SnapCropProps
   extends Partial<
@@ -172,7 +171,7 @@ export const SnapCrop = forwardRef<SnapCropRef, SnapCropProps>(
     );
 
     return (
-      <div className={`snap-crop ${className}`}>
+      <div className={`snap-crop relative w-full h-full ${className}`}>
         {mode === "crop" ? (
           <CropMode
             ref={cropModeRef}
