@@ -1,6 +1,6 @@
 {
   "name": "snap-crop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React image cropping component with crop and fill modes",
   "type": "module",
   "main": "./dist/snap-crop.umd.cjs",
